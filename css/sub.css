@@ -178,7 +178,7 @@
 }
 
 .ceo-signature-area {
-    margin-top: 50px;
+    margin-top: 120px; /* 50px에서 120px로 상향 (본문과의 여백 확보) */
     display: flex;
     align-items: center;
     justify-content: flex-end; /* Added to align name to the right */
