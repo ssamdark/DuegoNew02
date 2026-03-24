@@ -1,0 +1,344 @@
+/* --- Sub Page Common Styles --- */
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.sub-header {
+    padding-top: 140px; /* Space for the fixed navbar */
+    background: var(--gray-0);
+}
+
+.sub-header > .container:first-of-type {
+    padding: 0;
+    position: relative;
+    text-align: left;
+    min-height: 200px; /* Reduced from 280px to 200px (approx -80px) */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sub-header-title {
+    margin: 0; /* Centered by flex parent */
+}
+
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    font-size: 16px; /* Increased from 14px to 16px */
+    color: var(--gray-5);
+}
+
+.breadcrumbs a {
+    color: var(--gray-5);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.breadcrumbs a:hover {
+    color: var(--gray-6);
+}
+
+.breadcrumbs .sep {
+    color: var(--gray-3);
+}
+
+.breadcrumb-current {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--gray-8);
+    font-weight: 600; /* 500 -> 600 (semibold) */
+    cursor: default;
+}
+
+.breadcrumb-current i {
+    font-size: 16px;
+    color: var(--gray-5);
+}
+
+.sub-header h1 {
+    font-size: 60px; /* Adjusted from 58px to 60px */
+    font-weight: 700; /* Lowered from 800 to 700 */
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 0.8s ease-out forwards;
+}
+
+.sub-tabs {
+    width: 100%;
+    border-bottom: 1px solid var(--gray-3); /* Darkened from #eee */
+    margin-top: 20px; /* Lowered the tabs area slightly */
+}
+
+.sub-tabs-links {
+    display: flex;
+    gap: 50px; /* Increased from 30px for more spacing */
+    padding-bottom: 0;
+}
+
+.sub-tabs a {
+    text-decoration: none;
+    color: #999;
+    font-size: 17px; /* Adjusted from 18px to 17px */
+    font-weight: 600; /* 500 -> 600 (semibold) */
+    padding: 15px 0;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.sub-tabs a.active {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.sub-tabs a.active::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--primary); /* Changed from #111 to brand primary color */
+}
+
+.sub-tabs a:hover:not(.active) {
+    color: var(--gray-6);
+}
+
+
+/* Sub Banner is no longer used in the new design */
+.sub-banner {
+    display: none;
+}
+
+/* Content Area */
+.sub-content-wrapper {
+    max-width: 1440px;
+    margin: 100px auto 150px; /* Balanced top margin at 100px based on feedback */
+    padding: 0;
+    background: var(--bg-primary);
+}
+
+.sub-top-image {
+    width: 100%;
+    height: 480px;
+    overflow: hidden;
+    margin-bottom: 80px;
+}
+
+.sub-top-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px; /* Adjusted from 8px to 4px per user request */
+}
+
+.ceo-greeting {
+    display: block;
+    width: 100%; /* Changed from max-width: 1000px to 100% */
+}
+
+.sub-intro-title {
+    font-size: 48px; /* Increased from 46px to 48px */
+    font-weight: 700; /* Lowered from 800 to 700 */
+    line-height: 1.2;
+    margin-bottom: 80px; /* Increased from 50px to 80px for more vertical space */
+    color: var(--text-primary);
+    text-align: left;
+}
+
+.ceo-message .intro-text {
+    font-size: 26px; /* Adjusted from 28px to 26px for better balance */
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--text-primary);
+}
+
+.ceo-message {
+    padding-left: 400px; /* Increased from 300px to 400px for an even more pronounced right shift */
+    padding-right: 60px; /* Adjusted from 80px to 60px as requested */
+    box-sizing: border-box;
+}
+
+.ceo-message .body-text {
+    font-size: 18px; /* Corrected to 18px from 16px */
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+}
+
+.ceo-signature-area {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Added to align name to the right */
+    gap: 20px;
+}
+
+.ceo-signature-area .ceo-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+}
+
+.ceo-signature-area .signature-img {
+    height: 50px;
+}
+
+.ceo-portrait img {
+    width: 100%;
+    max-width: 500px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Back to Top for Sub Pages */
+.back-to-top-sub {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    width: 50px;
+    height: 50px;
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #666;
+    font-size: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+    z-index: 100;
+}
+
+.back-to-top-sub:hover {
+    background: var(--clavis-blue);
+    color: var(--gray-0);
+    transform: translateY(-5px);
+}
+
+/* --- SUB PAGE RESPONSIVE --- */
+
+@media screen and (max-width: 1024px) {
+    .sub-header {
+        padding: 120px 20px 0;
+    }
+
+    .sub-header h1 {
+        font-size: 36px; /* 40px에서 약간 축소 */
+        margin-bottom: 25px;
+        opacity: 1;
+        transform: none;
+        animation: slideUp 0.8s ease-out forwards;
+    }
+
+    .sub-tabs-links {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 0;
+        gap: 20px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .sub-tabs a {
+        padding: 10px 0;
+        white-space: nowrap;
+        font-size: 14px;
+    }
+
+    .sub-banner {
+        height: 300px;
+    }
+
+    .sub-content-wrapper {
+        margin: 60px 0;
+        padding: 0 20px;
+    }
+
+    .ceo-greeting {
+        gap: 40px;
+    }
+
+    .ceo-message {
+        padding-left: 0; /* Reset large desktop padding on mobile */
+        box-sizing: border-box;
+    }
+
+    .ceo-message h2 {
+        font-size: 32px;
+    }
+
+    .ceo-portrait img {
+        max-width: 100%;
+    }
+
+    .back-to-top-sub {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .sub-header h1 {
+        font-size: 28px; /* 32px에서 축소 */
+    }
+
+    .sub-top-image {
+        height: 240px; /* 480px -> 240px로 대폭 축소하여 가독 거리 확보 */
+        margin-bottom: 40px;
+    }
+
+    .sub-intro-title {
+        font-size: 26px; /* 48px에서 축소 */
+        margin-bottom: 40px;
+    }
+
+    .ceo-message .intro-text {
+        font-size: 20px; /* 26px에서 축소 */
+        line-height: 1.4;
+    }
+
+    .ceo-message .body-text {
+        font-size: 16px; /* 15px -> 16px (Mobile Body Text 규격) */
+        line-height: 1.7;
+    }
+
+    .ceo-signature-area {
+        flex-direction: row; /* 모바일에서도 가로 배치 유지 시도하거나 정렬 최적화 */
+        justify-content: flex-end;
+        align-items: center;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .ceo-signature-area .signature-img {
+        height: 35px; /* 이미지 크기 축소 */
+    }
+}
+
+/* --- Animations --- */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

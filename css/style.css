@@ -1,0 +1,2192 @@
+/* --- Root Variables --- */
+:root {
+    --clavis-blue: #2B3A8B;
+    --accent: #007AFF;
+    --text-black: #111111;
+    --text-white: #ffffff;
+    --text-gray: #666666;
+    --bg-gray: #f8f8f8;
+    /* Grayscale (10 Steps) */
+    --gray-0: #FFFFFF;
+    --gray-1: #F8F8F8;
+    --gray-2: #F0F0F0;
+    --gray-3: #E4E4E4;
+    --gray-4: #CCCCCC;
+    --gray-5: #AAAAAA;
+    --gray-6: #666666;
+    --gray-7: #444444;
+    --gray-8: #222222;
+    --gray-9: #111111;
+
+    /* Primary Color (10 Steps) - Base: #2B3A8B (Step 5) */
+    --primary-0: #EEF3FF;
+    --primary-1: #D6E4FF;
+    --primary-2: #ADC8FF;
+    --primary-3: #7EA8F8;
+    --primary-4: #4F75E0;
+    --primary-5: #2B3A8B;
+    --primary-6: #243280;
+    --primary-7: #1D2A6E;
+    --primary-8: #16215C;
+    --primary-9: #0F1848;
+
+    /* Semantic Mappings */
+    --bg-primary: var(--gray-0);
+    --text-primary: #111111;
+    /* Brand Colors (Semantic) */
+    --primary: var(--primary-5);
+    --secondary: var(--accent);
+    --edge: var(--accent); /* 포인트가 되는 '엣지' 컬러 정의 */
+    --text-secondary: var(--gray-6);
+    --surface: #fcfcfc;
+    --surface-alt: var(--gray-1);
+    --border-color: var(--gray-3);
+    --nav-bg: rgba(255, 255, 255, 0.95);
+
+    /* Fonts */
+    --font-primary: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    /* Border Radius */
+    --radius-xs: 2px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 50px;
+}
+
+/* --- Typography --- */
+body {
+    font-family: var(--font-primary);
+}
+
+/* --- Common UI Components (Buttons) --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 30px;
+    /* 뚱뚱하지 않도록 상하 패딩을 10px로 축소 */
+    font-family: var(--font-primary);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    border-radius: var(--radius-full);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.btn-primary {
+    background: var(--primary-4);
+    color: var(--gray-0);
+}
+
+.btn-primary:hover {
+    background: var(--primary-5);
+    /* 호버 시 조금 더 진한 브랜드 컬러로 변경 */
+}
+
+.btn-white-outline {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* 스트록이 너무 강하지 않게 알파값을 0.2로 조정 */
+    color: var(--gray-0);
+}
+
+.btn-white-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
+}
+
+
+/* --- Reset & Base --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+#scroll-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
+    will-change: transform;
+}
+
+/* --- GNB (Navbar) --- */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 94px;
+    display: flex;
+    justify-content: center;
+    /* Center the container */
+    align-items: center;
+    z-index: 1000;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    /* Placeholder to prevent jitter */
+    /* CLOSING: Parent bar starts alpha transition almost immediately (0.1s delay) and lasts 1s for smoothness */
+    transition: background 1.0s ease 0.1s, border-bottom 1.0s ease 0.1s, transform 0.5s ease, opacity 0.5s ease;
+}
+
+.navbar-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    /* 50px padding for full-width layout */
+    transition: transform 0.3s ease;
+}
+
+/* Mobile Menu Toggle */
+.mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 1001;
+    padding: 10px;
+}
+
+.mobile-toggle span {
+    width: 28px;
+    height: 2px;
+    background: var(--gray-0);
+    transition: 0.3s;
+}
+
+.navbar.dark .mobile-toggle span,
+.navbar.is-open .mobile-toggle span {
+    background: #111;
+}
+
+/* Active State for Toggle */
+.mobile-toggle.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.mobile-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-toggle.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Ensure logo and lang-nav have a flex-basis to push nav-links to exact center */
+.navbar-container>.logo,
+.navbar-container>.lang-nav {
+    flex: 1;
+}
+
+.navbar-container>.lang-nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+.safer-logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.safer-logo {
+    height: 16px; /* Reduced from 20px to 16px */
+    width: auto;
+    transition: filter 0.3s ease;
+}
+
+.safer-text {
+    font-size: 16px; /* 15px -> 16px (Nav/Labels 규격) */
+    font-weight: 400;
+    color: var(--gray-0); /* #fff -> 변수 사용 */
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+    transform: translateY(-1px);
+}
+
+.navbar.dark .safer-text,
+.navbar.is-open .safer-text,
+.navbar.is-open-sub .safer-text {
+    color: var(--text-black);
+}
+
+.navbar.dark .safer-logo,
+.navbar.is-open .safer-logo,
+.navbar.is-open-sub .safer-logo {
+    filter: brightness(0) invert(0); /* Black in light backgrounds */
+}
+
+/* Initially white/light if navbar is transparent on dark background */
+.navbar .safer-logo {
+    filter: brightness(0) invert(1);
+}
+
+.navbar.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Mega Menu Open State overrides */
+.navbar.is-open,
+.navbar.is-open-sub {
+    background: var(--gray-0);
+    border-bottom: 1px solid var(--border-color);
+    /* Updated to use Gray-3 via variable */
+    /* OPENING: Instant transition for background on open */
+    transition: background 0.3s 0s, border-bottom 0.3s 0s, transform 0.5s ease, opacity 0.5s ease;
+}
+
+.nav-dropdown-bg {
+    position: absolute;
+    top: 94px;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: var(--bg-primary);
+    z-index: -1;
+    /* CLOSING: Retract and fade out slowly (0.8s) after content starts fading (0.2s delay) */
+    transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+        opacity 0.6s ease 0.2s,
+        visibility 0.6s ease 0.2s;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--border-color);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.navbar.is-open .nav-dropdown-bg {
+    /* OPENING: Faster expansion (0.4s) */
+    height: 286px;
+    opacity: 1;
+    visibility: visible;
+    transition: height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) 0s, opacity 0.3s 0s;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -1px;
+    text-decoration: none;
+    position: relative;
+    z-index: 10;
+    /* CLOSING: Sync with navbar background transition */
+    transition: color 1.0s ease 0.1s;
+}
+
+.navbar.dark .logo,
+.navbar.is-open .logo,
+.navbar.is-open-sub .logo {
+    color: var(--text-black);
+    transition: color 0.3s 0s;
+}
+
+.nav-links {
+    display: flex;
+    gap: 80px;
+    /* Increased gap for better spacing */
+    list-style: none;
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    /* Center links in the middle */
+}
+
+.nav-item {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    cursor: pointer;
+    /* CLOSING: Sync with logo/navbar alpha transition */
+    transition: color 1.0s ease 0.1s;
+}
+
+.nav-links span {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    cursor: default;
+    /* Not clickable */
+    /* CLOSING: Sync with logo/navbar alpha transition */
+    transition: color 1.0s ease 0.1s;
+}
+
+.navbar.dark .nav-links a,
+.navbar.dark .nav-links span,
+.navbar.is-open .nav-links a,
+.navbar.is-open .nav-links span,
+.navbar.is-open-sub .nav-links a,
+.navbar.is-open-sub .nav-links span {
+    color: var(--text-black);
+    transition: color 0.3s 0s;
+}
+
+.navbar.is-open .nav-item:hover>a,
+.navbar.is-open .nav-item:hover>span {
+    color: #2B3A8B;
+    /* Replaced orange with Deep Navy */
+}
+
+/* Sub Menu Styles */
+.sub-menu {
+    position: absolute;
+    top: 94px;
+    left: 50%;
+    transform: translateX(-50%);
+    list-style: none;
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    visibility: hidden;
+    /* CLOSING: Content fades out smoothly (0.6s) */
+    transition: opacity 0.6s ease 0s, visibility 0.6s ease 0s;
+    min-width: 140px;
+    text-align: center;
+}
+
+.navbar.is-open .sub-menu {
+    opacity: 1;
+    visibility: visible;
+    /* OPENING: Wait slightly for bg expansion to start */
+    transition-delay: 0.2s;
+}
+
+.sub-menu li a {
+    font-size: 16px;
+    font-weight: 600; /* 500 -> 600 (semibold) */
+    color: #777 !important;
+    white-space: nowrap;
+    transition: color 0.2s 0s !important;
+}
+
+.sub-menu li a:hover,
+.sub-menu li a.active {
+    color: #2B3A8B !important;
+    /* Replaced orange with Deep Navy */
+    font-weight: 700;
+}
+
+.lang-nav {
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.3s;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Icon System (Remix Icon) */
+.lang-nav i {
+    font-size: 24px;
+    font-weight: normal;
+    /* Added to keep icons thin (prevent inheritance) */
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+.navbar.dark .lang-nav,
+.navbar.is-open .lang-nav,
+.navbar.is-open-sub .lang-nav {
+    color: var(--text-black);
+}
+
+/* --- SECTION 1: HERO --- */
+.hero {
+    height: 100vh;
+    background: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; 중앙 정렬(주석) */
+    /* text-align: center; 중앙 정렬(주석) */
+    justify-content: flex-start;
+    /* 좌측 정렬 활성화 */
+    text-align: left;
+    /* 좌측 정렬 활성화 */
+    padding-left: 300px;
+    /* 400px에서 300px로 조정 */
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* 검정 알파 복구 (0.5) */
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1600px;
+    /* 여백 확보를 위해 최대 너비 확장 */
+    padding: 0;
+    transform: translateY(30px);
+    /* 50px에서 30px로 조정 (20px 위로 이동) */
+}
+
+.slogan-container {
+    position: relative;
+    height: 220px; /* 88px * 2 lines + line-height 고려 */
+    margin-bottom: 60px; /* desc와의 간격 조정 (20px -> 60px로 40px 확장) */
+}
+
+.slogan-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 86px; /* 112px -> 88px -> 86px로 조정 */
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -1px;
+    word-break: keep-all;
+    opacity: 1; /* 컨테이너는 보이고 내부 span으로 제어 */
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.slogan-title.active {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.slogan-title.exit {
+    visibility: visible;
+}
+
+.slogan-title.exit .line-1,
+.slogan-title.exit .line-2 {
+    animation: fadeOutUpSlogan 0.8s ease-out both;
+    animation-delay: 0s;
+}
+
+.slogan-title span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.slogan-title.active .line-1 {
+    animation: fadeInUpSlogan 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation-delay: 0s;
+}
+
+.slogan-title.active .line-2 {
+    animation: fadeInUpSlogan 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeInUpSlogan {
+    from {
+        opacity: 0;
+        visibility: visible;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOutUpSlogan {
+    0% {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-30px);
+    }
+}
+
+.desc-container {
+    position: relative;
+    height: 80px;
+    margin-bottom: 200px;
+}
+
+.slogan-desc {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: -1px;
+    word-break: keep-all;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(20px);
+    font-weight: 300; /* 300 (light) 규정 적용 */
+}
+
+.slogan-desc.active {
+    pointer-events: auto;
+    animation: fadeInUpSlogan 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation-delay: 0.6s;
+}
+
+.slogan-desc.exit {
+    animation: fadeOutUpSlogan 0.8s ease-out both;
+    animation-delay: 0s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUpService {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- BACKGROUND MARQUEE TEXT --- */
+.bg-marquee {
+    position: absolute;
+    bottom: 10%; /* 가시성 확보를 위해 높이 상향 */
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 0; /* 배경색 위, 콘텐츠 아래 */
+    pointer-events: none;
+    opacity: 0.05; /* 다시 은은하게 (투명도 낮춤) */
+    user-select: none;
+}
+
+.marquee-inner {
+    display: flex;
+    white-space: nowrap;
+    width: fit-content;
+    animation: marqueeMove 75s linear infinite; /* 90초에서 75초로 소폭 단축 */
+}
+
+.marquee-inner span {
+    font-size: 14vw; /* 12vw에서 14vw로 확대 */
+    font-weight: 700; /* 800에서 700으로 규정에 맞게 하향 */
+    color: var(--gray-9); /* #000에서 변수로 교체 */
+    padding-right: 300px; /* 간격 유지 */
+    letter-spacing: -5px; /* 자간 유지 */
+    line-height: 1;
+}
+
+@keyframes marqueeMove {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.video-controls {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; 중앙 정렬(주석) */
+    justify-content: flex-start;
+    /* 좌측 정렬 활성화 */
+    gap: 15px;
+}
+
+.video-toggle-btn {
+    background: none;
+    border: none;
+    /* 스트록 제거 */
+    color: #fff;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 22px;
+    /* 스트록이 없어졌으므로 아이콘 크기 약간 확대 */
+    border-radius: 50%;
+}
+
+.video-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #fff;
+}
+
+.video-progress-bar {
+    width: 240px;
+    /* 120px에서 240px로 2배 확대 */
+    height: 2px;
+    background: rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: var(--gray-0);
+    transition: width 0.2s linear;
+}
+
+/* --- SECTION 2: TECH (Clavis Style) --- */
+.tech-section {
+    position: relative; /* 자식 요소 bg-marquee의 위치 기준점 */
+    height: 100vh;
+    background: var(--bg-primary);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+}
+
+.tech-wrapper {
+    position: relative;
+    z-index: 1; /* 배경 마키(z-index: 0)보다 위로 배치 */
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 0 10%; /* 상하 패딩 제거하여 부모 섹션의 align-items: center로 중앙 정렬 */
+    /* Side Margins 10% */
+    align-items: flex-start;
+    /* Align children to top vertically within self */
+}
+
+/* Left Side (35%) */
+.tech-info {
+    width: 35%;
+    /* Increased for better label/title fit */
+    padding-right: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Vertically center content WITHIN self */
+}
+
+.category-label {
+    color: var(--edge);
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    opacity: 0;
+}
+
+.tech-section.active .category-label {
+    animation: fadeInUpService 1.2s ease-out forwards;
+}
+
+.cases-text-box .main-title {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text-black);
+    letter-spacing: -2px;
+    margin-top: 15px;
+}
+
+.cases-links {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 60px auto 0;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+}
+
+.cases-links.show-links {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.case-card {
+    flex: none;
+    width: 640px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 45px;
+    background: rgba(150, 150, 150, 0.15);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px; /* Fixed to 8px per user request */
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative; /* 화살표 절대 배치를 위해 추가 */
+}
+
+.case-card .card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start; /* 좌측 정렬 명시 */
+    text-align: left;
+}
+
+.case-card .ko {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.case-card .en {
+    font-size: 14px;
+    opacity: 0.6;
+    text-transform: uppercase;
+    font-weight: 600; /* 500 -> 600 (semibold) */
+    letter-spacing: 0; /* 정렬 방해 가능한 자간 제거 */
+}
+
+.case-card i {
+    position: absolute;
+    right: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 32px;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.case-card:hover {
+    background: rgba(150, 150, 150, 0.25);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-5px);
+}
+
+.case-card:hover i {
+    opacity: 1;
+    transform: scale(1.1) translateX(5px);
+}
+
+.main-title {
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 50px;
+    color: var(--text-black);
+    letter-spacing: -1.5px;
+    opacity: 0;
+}
+
+.tech-section.active .main-title {
+    animation: fadeInUpService 1.2s ease-out 0.2s forwards;
+    /* 시차 0.2초로 단축 */
+}
+
+.side-menu {
+    list-style: none;
+    margin-bottom: 80px;
+    /* Increased margin for better separation */
+    opacity: 0;
+}
+
+.tech-section.active .side-menu {
+    animation: fadeInUpService 1.2s ease-out 0.4s forwards;
+    /* 시차 0.4초로 단축 */
+}
+
+.side-menu li {
+    height: 70px;
+    /* Fixed height to prevent layout jumping */
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    /* Slightly more indentation */
+    font-size: 20px;
+    /* Balanced starting size */
+    color: var(--gray-4);
+    /* Consistent Gray-4 from root variables */
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.side-menu li.active {
+    color: var(--clavis-blue);
+    font-weight: 700;
+    font-size: 26px;
+    /* Slightly larger for premium distinction */
+    letter-spacing: -0.8px;
+}
+
+.side-menu li.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: var(--clavis-blue);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+.pagination {
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+}
+
+.tech-section.active .pagination {
+    animation: fadeInUpService 1.2s ease-out 0.6s forwards;
+    /* 시차 0.6초로 단축 */
+}
+
+.pagination .num {
+    color: var(--gray-5);
+    /* Gray for inactive numbers */
+    transition: color 0.3s ease;
+}
+
+.pagination .num.active {
+    color: var(--clavis-blue);
+    /* Blue for active index */
+}
+
+.pagination .divider {
+    color: #ccc;
+    opacity: 0.5;
+}
+
+.tech-autoplay-btn {
+    background: var(--clavis-blue);
+    border: none;
+    color: #fff;
+    font-size: 12px; /* 아이콘 크기 약간 축소 */
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    margin-right: 15px; /* 왼쪽 배치에 따른 우측 마진 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 102, 255, 0.2);
+}
+
+.tech-autoplay-btn:hover {
+    background: var(--clavis-blue-hover, #0052cc);
+    transform: scale(1.1);
+}
+
+/* Right Side (65%) */
+.tech-slider {
+    width: 65%;
+    /* Adjusted to match 35% tech-info width */
+    display: flex;
+    height: 100%;
+    gap: 30px;
+    align-items: center;
+    /* Center square cards vertically if their row is taller */
+}
+
+.product-card {
+    flex: 2;
+    position: relative;
+    height: 580px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px; /* Adjusted from 4px back to 8px per user request */
+    overflow: hidden;
+    cursor: pointer;
+    /* transition: 0.7s smoothness optimization */
+    transition: flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.6s ease;
+    will-change: flex-grow;
+}
+
+.product-card.active {
+    flex-grow: 10;
+    /* Significant expansion but less extreme than before for balance */
+    cursor: default;
+}
+
+/* Entrance Animation (Disabled for cards, only text animates) */
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    /* Removed gradient per user request to eliminate 'weird shadow' */
+    background: transparent;
+    z-index: 2;
+    transition: 0.4s;
+}
+
+/* 호버 시 투명화 로직 제거 (가독성 확보를 위해 아래 통합 규칙에서 관리) */
+/* 가독성을 위해 살짝만 연해지도록 통합 관리됨 (속성 불필요로 비움) */
+
+
+.product-card-bg {
+    display: none;
+    /* Removed circle effect */
+}
+
+
+
+/* Plus Icon removed as requested via circle removal */
+.plus-icon {
+    display: none;
+}
+
+
+.plus-icon i {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+
+
+.bg-text {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    color: var(--border-color);
+    font-style: italic;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.6;
+    transition: 0.3s;
+    font-size: 80px;
+    /* Make it large like reference */
+    font-weight: 700;
+}
+
+.product-card:hover .bg-text {
+    opacity: 0.1;
+    transform: translateY(-20px);
+}
+
+.product-content {
+    position: absolute;
+    inset: 0;
+    padding: 60px;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Space between center and bottom info */
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    transition: 0.8s ease;
+}
+
+.center-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* 초기 50/50 상태에서도 텍스트가 보이도록 투명도/변위 제거 */
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s ease;
+}
+
+.product-card.active .center-content {
+    opacity: 1;
+    transform: translateY(0);
+    /* Smooth entrance when becoming active */
+    transition: all 0.8s ease 0.3s;
+}
+
+/* 애니메이션이 시작된 후, 활성화되지 않은(축소된) 카드의 텍스트는 숨김 */
+.tech-section.animation-started .product-card:not(.active) .center-content {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    /* 초기 50/50 상태에서도 텍스트 가독성을 확보하기 위해 검정 알파 레이어 상시 적용 */
+    background: rgba(0, 0, 0, 0.45);
+    transition: background 0.6s ease;
+    z-index: 2;
+}
+
+/* 확장(Active) 상태: 기본 0.35 유지 */
+.product-card.active .card-overlay {
+    background: rgba(0, 0, 0, 0.35) !important;
+}
+
+/* 확장(Active) 상태에서 호버 시: 0.25로 미세하게 밝아져 인터랙션 표시 */
+.product-card.active:hover .card-overlay {
+    background: rgba(0, 0, 0, 0.25) !important;
+}
+
+/* 일반 카드를 호버할 때 (확장 전) */
+.product-card:not(.active):hover .card-overlay {
+    background: rgba(0, 0, 0, 0.35) !important;
+}
+
+/* 축소된 상태 (다른 카드가 active일 때): 텍스트가 없으므로 오버레이 제거하여 이미지 강조 */
+.tech-section.animation-started .product-card:not(.active) .card-overlay {
+    background: transparent !important;
+}
+
+.card-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.center-content h2 {
+    font-size: 48px; /* 52px에서 48px로 최종 조정 (사용자 요청 반영) */
+    font-weight: 700;
+    /* Decreased from 800 for better balance */
+    line-height: 1.2;
+    margin-bottom: 40px;
+    word-break: keep-all;
+    color: #fff;
+    letter-spacing: -1px;
+}
+
+.category-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.category {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.arrow-circle {
+    width: 50px;
+    height: 50px;
+    background: var(--gray-0);
+    color: #000;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.bottom-info {
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    /* Immediate disappearance */
+    transition: opacity 0s, transform 0s;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.product-card.active .bottom-info {
+    opacity: 0.8;
+    transform: translateY(0);
+    /* Smooth entrance */
+    transition: all 0.8s ease 0.5s;
+}
+
+.bottom-info p {
+    font-size: 18px; /* Increased from 16px to 18px */
+    color: #fff;
+    line-height: 1.5;
+    margin-bottom: 8px;
+    word-break: keep-all;
+}
+
+/* Cleanup old elements */
+.product-card-bg,
+.plus-icon,
+.visual-area,
+.bg-text {
+    display: none;
+}
+
+
+/* --- SECTION 3: ROADMAP --- */
+.roadmap {
+    height: 100vh;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+}
+
+.roadmap-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0.7;
+    /* Optional: Slightly dim the video */
+}
+
+.roadmap-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 50, 150, 0.2) 0%, rgba(0, 0, 0, 0.6) 80%);
+    z-index: 2;
+}
+
+
+.roadmap-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0 10%;
+    z-index: 10;
+    /* Ensure content is above video and overlay */
+}
+
+.roadmap-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 240px 10% 120px;
+    /* Increased top padding to move content down */
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #fff;
+}
+
+.stats-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.stats-label {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--edge);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.stats-title {
+    font-size: 48px; /* 52px에서 48px (Trust & Performance 규격)로 조정 */
+    font-weight: 700;
+    /* Decreased from 800 */
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+}
+
+.stats-subtitle {
+    font-size: 16px; /* 18px에서 16px (Stats Sub Label 규격)로 조정 */
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 300; /* 300 (light) 규정 적용 */
+}
+
+.stats-link a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.stats-link a:hover {
+    background: var(--gray-0);
+    color: #000;
+}
+
+.stats-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    /* Align label and number to bottom */
+    margin: 100px 0 60px;
+    /* Increased top margin to move it down */
+}
+
+.main-label {
+    font-size: 48px;
+    font-weight: 600; /* Lowered from 700 to 600 */
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+.main-number {
+    font-size: 280px; /* 누락된 크기 복구 */
+    font-weight: 700; /* 900에서 700으로 규정에 맞게 하향 */
+    line-height: 0.8;
+    letter-spacing: -10px;
+    font-style: italic;
+    color: var(--gray-0); /* #fff에서 변수로 교체 */
+    margin-bottom: -25px;
+    /* Adjusting offset for larger size */
+}
+
+.main-number .unit {
+    font-size: 110px;
+    /* Increased from 42px to match 280px number */
+    letter-spacing: 0;
+    font-style: normal;
+    margin-left: 20px;
+    font-weight: 700;
+    /* Increased weight for visibility */
+    opacity: 0.9;
+    vertical-align: top;
+    /* Align to the top of the number or adjust accordingly */
+    line-height: 1.2;
+}
+
+.stats-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: auto;
+}
+
+/* Grid Top Line Animation */
+.stats-grid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.stats-grid.active::before {
+    transform: scaleX(1);
+}
+
+.stat-item {
+    padding: 40px 0;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.stats-grid.active .stat-item {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Staggered entrance for stat items */
+.stats-grid.active .stat-item:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.stats-grid.active .stat-item:nth-child(2) {
+    transition-delay: 0.3s;
+}
+
+.stats-grid.active .stat-item:nth-child(3) {
+    transition-delay: 0.5s;
+}
+
+.stats-grid.active .stat-item:nth-child(4) {
+    transition-delay: 0.7s;
+}
+
+.stat-item .label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.stat-item .label .ko {
+    color: #fff;
+    font-size: 18px; /* Increased from 16px to 18px */
+    margin-right: 6px;
+}
+
+.stat-item .label .en {
+    color: var(--edge);
+    font-size: 12px; /* Stats Item Sub 규격 준수 */
+    opacity: 0.7;
+    text-transform: uppercase;
+}
+
+.stat-item .value {
+    font-size: 80px;
+    /* Increased from 64px */
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat-item .unit {
+    font-size: 40px;
+    /* Increased from 24px */
+    font-weight: 600;
+    opacity: 0.8;
+    margin-left: 5px;
+    vertical-align: top;
+    /* Position at the top right of the number */
+    line-height: 1.5;
+    /* Offset adjustment for top alignment */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- SECTION 4: CASE STORIES --- */
+.cases-section {
+    height: 100vh;
+    background: var(--bg-primary);
+    padding: 0;
+    /* Changed from 80px 10% to allow full-width banner */
+    display: flex;
+    flex-direction: column;
+}
+
+.cases-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 160px 10% 40px;
+    /* Increased top padding from 80px */
+}
+
+.cases-title-area h2 {
+    font-size: 52px; /* 56px에서 52px로 섹션 타이틀 통일 */
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+    letter-spacing: -2px;
+}
+
+.cases-title-area p {
+    font-size: 18px;
+    color: #666;
+    max-width: none;
+}
+
+.learn-more {
+    padding: 12px 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.learn-more:hover {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+}
+
+/* --- SECTION 4: CASES (Immersive Scroll Video) --- */
+.cases-scroll-wrapper {
+    position: relative;
+    height: 100vh; /* 전체 페이지 스크롤 패턴에 맞게 100vh로 수정 */
+    background: var(--gray-0);
+}
+
+.cases-sticky-container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cases-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 22vh;
+}
+
+/* 비디오 확장 시 슬로건 배치 최적화 및 색상 반전 (7vh) */
+.cases-scroll-wrapper.full-bg .cases-text-box {
+    transform: translateY(7vh) !important;
+    color: #fff !important;
+}
+
+.cases-text-box {
+    text-align: center;
+    z-index: 10;
+    transition: color 0.6s ease, transform 0.6s ease, opacity 0.6s ease;
+    pointer-events: none;
+    color: #111; /* 기본 상태: 어두운 색 */
+    opacity: 1 !important; /* 타 섹션의 전역 opacity: 0 간섭 방지 */
+    visibility: visible !important;
+}
+
+.cases-text-box .category-label {
+    display: block;
+    opacity: 1 !important;
+    color: var(--edge);
+    margin-bottom: 20px;
+}
+
+.cases-title-group {
+    margin-bottom: 40px;
+}
+
+.cases-text-box .title-sub {
+    display: block;
+    font-size: 36px;
+    font-weight: 600; /* 500 -> 600 (semibold) */
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+    color: inherit;
+}
+
+.cases-text-box .title-main {
+    display: block;
+    font-size: 68px;
+    font-weight: 700; /* Lowered from 800 to 700 */
+    margin-bottom: 35px;
+    line-height: 1.2;
+    letter-spacing: -2.5px;
+    color: inherit;
+}
+
+.cases-text-box .title-desc {
+    font-size: 22px;
+    line-height: 1.6;
+    opacity: 0.8;
+    max-width: 900px;
+    margin: 0 auto;
+    word-break: keep-all;
+    color: inherit;
+    font-weight: 400; /* 500 -> 400 (regular) */
+}
+
+/* 비디오 박스 - 초기 상태 (타이틀 아래 지점) */
+.cases-video-box {
+    position: absolute;
+    top: 52%; /* 60%에서 상향 조정 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px; /* 초기 가로 크기 확대 */
+    height: 450px; /* 16:9 비율 유지 */
+    border-radius: 8px; /* Fixed to 8px per user request */
+    overflow: hidden;
+    z-index: 5;
+    /* JS에서 유동적으로 변경 예정 - 부드러운 전이 추가 */
+    transition: width 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+                height 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+                top 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+                border-radius 0.7s ease;
+}
+
+.video-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.video-inner video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0; /* 초기엔 투명하다가 비디오가 배경이 되면 활성화 */
+    transition: opacity 0.8s ease;
+}
+
+/* 비디오가 배경 전체가 되었을 때의 텍스트 반전 스타일 */
+.cases-scroll-wrapper.full-bg .cases-text-box {
+    color: #fff;
+    transform: translateY(15vh); /* 중앙으로 이동 */
+}
+
+.cases-scroll-wrapper.full-bg .cases-text-box .sub-title {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.cases-scroll-wrapper.full-bg .video-overlay {
+    opacity: 1;
+}
+
+/* --- HIRING BANNER --- */
+.hiring-banner {
+    position: relative;
+    height: 32vh;
+    margin-top: auto;
+    /* Push to the bottom of the 100vh section */
+    background: url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2000') center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+}
+
+.hiring-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 1;
+}
+
+.hiring-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hiring-content .hiring-sub {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+.hiring-content h2 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.hiring-content p {
+    font-size: 16px;
+    margin-bottom: 25px;
+    opacity: 0.8;
+}
+
+.hiring-btn {
+    display: inline-block;
+    padding: 12px 35px;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-radius: 30px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700; /* 500 -> 700 (bold) */
+    transition: 0.3s;
+}
+
+.hiring-btn:hover {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    border-color: var(--text-primary);
+}
+
+/* --- FOOTER --- */
+.main-footer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background: #0a0a0a;
+    color: #fff;
+    padding: 60px 0;
+}
+
+.footer-container {
+    width: 100%;
+    max-width: 1440px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.f-logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -1px;
+    line-height: 1;
+    /* Match line-height for better alignment */
+}
+
+.f-info p {
+    font-size: 14px;
+    color: #666;
+    margin-top: 0;
+    /* Removed top margin for first line alignment */
+    text-align: right;
+    line-height: 1.6;
+}
+
+.f-info p+p {
+    margin-top: 8px;
+    /* Apply margin only to subsequent paragraphs */
+}
+
+/* Base list item styles */
+.details li {
+    position: relative;
+    padding-left: 0;
+}
+
+/* --- RESPONSIVE MEDIA QUERIES --- */
+
+/* Tablet & Smaller Desktop (below 1200px) */
+@media screen and (max-width: 1200px) {
+
+    .navbar-container,
+    .tech-wrapper,
+    .roadmap-container,
+    .cases-header,
+    .cases-grid,
+    .footer-container {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .tech-info {
+        padding-left: 0;
+        padding-right: 40px;
+    }
+
+    .hero-content h1 {
+        font-size: 80px;
+    }
+
+    .main-title {
+        font-size: 40px;
+    }
+}
+
+/* Mobile & Tablet (below 1024px) */
+@media screen and (max-width: 1024px) {
+    html, body {
+        overflow: visible !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+    }
+
+    #scroll-wrapper {
+        height: auto !important;
+        transition: none !important;
+        transform: none !important;
+    }
+
+    section {
+        height: auto !important;
+        min-height: 100vh;
+        padding: 100px 0;
+        position: relative !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        /* 데스크탑 전용 애니메이션 초기화 */
+    }
+
+    .navbar {
+        height: 70px;
+    }
+
+    .navbar-container {
+        padding: 0 20px;
+    }
+
+    .nav-links,
+    .lang-nav {
+        display: none;
+        /* Hide desktop nav */
+    }
+
+    .mobile-toggle {
+        display: flex;
+    }
+
+    /* Mobile Menu Overlay */
+    .nav-links.mobile-active {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--gray-0);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        z-index: 1000;
+        padding: 100px 20px;
+    }
+
+    .nav-links.mobile-active a {
+        color: var(--text-black);
+        font-size: 24px;
+    }
+
+    .nav-links.mobile-active .sub-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        padding: 10px 0;
+        display: none;
+        /* Toggle this via JS */
+    }
+
+    /* Hero Section */
+    .hero {
+        height: 90vh !important; /* 조금 더 여유 있게 조정 */
+    }
+
+    .hero-content h1 {
+        font-size: 36px; /* 56px에서 36px로 축소하여 줄바꿈 최적화 */
+        line-height: 1.3;
+        letter-spacing: -1px;
+        margin-bottom: 20px;
+    }
+
+    .hero-content h2 {
+        font-size: 18px; /* 24px에서 축소 */
+        line-height: 1.5;
+    }
+
+    .hero-controls {
+        bottom: 40px;
+    }
+
+    /* Tech Section */
+    .tech-wrapper {
+        flex-direction: column;
+        padding: 60px 20px;
+    }
+
+    .tech-info {
+        width: 100%;
+        padding: 0;
+        margin-bottom: 60px;
+    }
+
+    .tech-slider {
+        width: 100%;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .product-card {
+        flex: none !important;
+        width: 100% !important;
+        height: 320px !important; /* 450px에서 320px로 축소하여 스크롤 부담 경감 */
+        margin-bottom: 15px;
+    }
+
+    .product-card.active {
+        flex-grow: 0 !important; /* 모바일에서는 확장 금지 */
+    }
+
+    .product-card .center-content h2 {
+        font-size: 32px; /* 48px에서 32px로 축소 */
+        margin-bottom: 20px;
+    }
+
+    .product-card .bottom-info p {
+        font-size: 15px; /* 18px에서 축소 */
+    }
+
+    .product-card .center-content {
+        opacity: 1 !important;
+        transform: none !important;
+        padding: 30px;
+    }
+
+    .product-card .card-overlay {
+        background: rgba(0, 0, 0, 0.4) !important; /* 텍스트 가공성을 위해 상시 어둡게 */
+    }
+
+    /* Roadmap Section (Stats Layout) */
+    .roadmap {
+        height: auto !important;
+        padding: 60px 0;
+    }
+
+    .roadmap-container {
+        height: auto;
+        padding: 40px 20px;
+        gap: 40px;
+    }
+
+    .stats-top {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .stats-title {
+        font-size: 28px; /* 32px에서 축소 */
+    }
+
+    .stats-main {
+        flex-direction: column;
+        align-items: center; /* 가로 중앙 정렬로 변경 */
+        margin: 30px 0;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .main-label {
+        font-size: 22px; /* 28px에서 축소 */
+    }
+
+    .main-number {
+        font-size: 80px; /* 100px에서 축소하여 화면 이탈 방지 */
+        margin-bottom: 0;
+    }
+
+    .main-number .unit {
+        font-size: 32px;
+        margin-left: 5px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .stat-item {
+        padding: 20px 0;
+    }
+
+    .stat-item .value {
+        font-size: 40px;
+    }
+
+    /* Cases Section - 모바일 정적 최적화 */
+    .cases-scroll-wrapper {
+        height: auto !important;
+        padding: 80px 0 !important;
+        background: var(--gray-0);
+    }
+
+    .cases-sticky-container {
+        position: relative !important;
+        height: auto !important;
+    }
+
+    .cases-content {
+        position: relative !important;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .cases-text-box {
+        position: relative !important;
+        width: 100% !important;
+        padding: 0;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .cases-text-box .title-sub {
+        font-size: 20px !important;
+        margin-bottom: 10px;
+    }
+
+    .cases-text-box .title-main {
+        font-size: 32px !important; /* 68px에서 축소 */
+        line-height: 1.3 !important;
+        letter-spacing: -1px !important;
+        margin-bottom: 25px !important;
+        color: #111 !important;
+    }
+
+    .cases-text-box .title-desc {
+        font-size: 16px !important;
+        line-height: 1.6 !important;
+        margin-bottom: 30px !important;
+    }
+
+    .cases-links {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+
+    .case-card {
+        padding: 20px !important;
+        background: #f8f8f8 !important;
+        border: 1px solid #eee !important;
+        color: #111 !important;
+    }
+
+    .case-card .ko { font-size: 18px !important; }
+    .case-card .en { font-size: 12px !important; }
+
+    .cases-video-box {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 16 / 9;
+        top: 0 !important;
+        left: 0 !important;
+        margin: 40px 0 0;
+        border-radius: 12px !important;
+        transform: none !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    /* Hiring Banner */
+    .hiring-banner {
+        height: 40vh;
+    }
+
+    .hiring-content h2 {
+        font-size: 32px;
+    }
+
+    /* Footer */
+    .main-footer {
+        padding: 50px 0;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        gap: 25px;
+        align-items: center;
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .f-info p {
+        text-align: center;
+        font-size: 13px;
+        color: #888;
+    }
+}
+
+/* Small Mobile (below 480px) */
+@media screen and (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 45px;
+    }
+
+    .main-title {
+        font-size: 32px;
+    }
+
+    .data-box .num {
+        font-size: 40px;
+    }
+}
+
+/* --- SECTION COUNTER (Indicator) --- */
+.section-counter {
+    position: fixed;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-pretendard);
+    color: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+    transition: color 0.5s ease;
+}
+
+.section-counter .current {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    transition: color 0.5s ease;
+}
+
+.section-counter .divider {
+    font-size: 16px;
+    transform: rotate(20deg);
+    display: block;
+    margin: 2px 0;
+}
+
+.section-counter .total {
+    font-size: 16px;
+    font-weight: 600; /* 500 -> 600 (semibold) */
+}
+
+/* Dark Mode (When bg is light) */
+.section-counter.dark {
+    color: var(--gray-4);
+}
+
+.section-counter.dark .current {
+    color: var(--text-black);
+}
+
+@media screen and (max-width: 1024px) {
+    .section-counter {
+        display: none;
+    }
+}
+
+/* --- FLOATING CONTACT BUTTON --- */
+.floating-contact {
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    z-index: 2000;
+    animation: floating-blink 4s ease-in-out infinite;
+    /* 깜빡임 속도를 4초로 늦추고 변화 폭을 줄여 매우 은은한 효과로 변경 */
+}
+
+@keyframes floating-blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+        /* 최저 투명도를 0.8로 상향하여 깜빡임을 최소화 */
+    }
+}
+
+.floating-contact:hover {
+    animation: none; /* 호버 시에는 애니메이션 중단 */
+    transform: translateY(-5px) scale(1.03);
+}
+
+.floating-contact i {
+    font-size: 22px;
+}
+
+@media screen and (max-width: 1024px) {
+    .floating-contact {
+        right: 20px;
+        bottom: 20px;
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
