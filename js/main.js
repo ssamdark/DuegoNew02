@@ -437,32 +437,35 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeAnimations = []; // Track active countUp animations to cancel them if needed
 
     function triggerRoadmapAnimation() {
-        // Cancel any ongoing animations to prevent overlapping
-        activeAnimations.forEach(id => cancelAnimationFrame(id));
-        activeAnimations = [];
-
         const mainCounter = document.querySelector('.stats-main .num');
         const grid = document.querySelector('.stats-grid');
         const itemCounters = document.querySelectorAll('.stat-item .value');
 
-        // Reset text values immediately (CSS classes are handled by moveToSection)
+        if (window.innerWidth <= 1024) {
+            // 모바일: 애니메이션 없이 즉시 최종값 표시
+            if (mainCounter) mainCounter.innerText = mainCounter.getAttribute('data-target');
+            if (itemCounters) {
+                itemCounters.forEach(c => c.innerText = c.getAttribute('data-target'));
+            }
+            if (grid) grid.classList.add('active');
+            return;
+        }
+
+        // Cancel any ongoing animations to prevent overlapping (Desktop only)
+        activeAnimations.forEach(id => cancelAnimationFrame(id));
+        activeAnimations = [];
+
+        // Reset text values immediately
         if (mainCounter) mainCounter.innerText = '0';
         if (itemCounters) itemCounters.forEach(c => c.innerText = '0');
 
         // Give a small delay to start counting
         setTimeout(() => {
-            // 1. Grid Active (CSS Animations for lines/items)
             if (grid) grid.classList.add('active');
-
-            // 2. Main Counter Starts
             countUp(mainCounter, 1000);
-
-            // 3. Item Counters Start with slight delay
             setTimeout(() => {
                 itemCounters.forEach((counter, idx) => {
-                    setTimeout(() => {
-                        countUp(counter, 800);
-                    }, idx * 100);
+                    setTimeout(() => countUp(counter, 800), idx * 100);
                 });
             }, 500);
         }, 100);
@@ -576,7 +579,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 초기에 첫 번째 섹션 상태 동기화 및 애니메이션 트리거
     if (sections.length > 0) {
-        moveToSection(0);
+        if (window.innerWidth > 1024) {
+            moveToSection(0);
+        } else {
+            // 모바일에서는 트랜스폼 완전 제거 및 표준 흐름 확보
+            if (wrapper) {
+                wrapper.style.transform = 'none';
+                wrapper.style.height = 'auto';
+                wrapper.style.display = 'block';
+            }
+            // 모든 섹션에 active 클래스 즉시 부여 (순차 대기 제거)
+            sections.forEach(s => s.classList.add('active'));
+            
+            // 실적 섹션 수치 애니메이션 강제 실행
+            setTimeout(triggerRoadmapAnimation, 800);
+        }
+        
         // 초기 렌더링 시 isScrolling을 false로 유지하여 첫 터치를 바로 허용
         setTimeout(() => { isScrolling = false; }, 100);
     }

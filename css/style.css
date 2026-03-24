@@ -1776,329 +1776,249 @@ body {
     }
 }
 
-/* Mobile & Tablet (below 1024px) */
+/* ==========================================================================
+   MOBILE & TABLET RESPONSIVE (Overhaul v2.0 - Final Consolidated)
+   ========================================================================== */
+
 @media screen and (max-width: 1024px) {
+    /* 1. Global Reset - Force Normal Scroll Flow */
     html, body {
-        overflow: visible !important;
-        overflow-x: hidden !important;
         height: auto !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        position: relative !important;
     }
 
     #scroll-wrapper {
         height: auto !important;
-        transition: none !important;
         transform: none !important;
+        display: block !important;
+        position: relative !important;
     }
 
     section {
         height: auto !important;
-        min-height: 100vh;
-        padding: 100px 0;
+        min-height: auto !important;
+        padding: 60px 20px 40px !important;
         position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
         opacity: 1 !important;
         visibility: visible !important;
-        transform: none !important;
-        /* 데스크탑 전용 애니메이션 초기화 */
     }
 
+    /* 2. Header (Navbar) */
     .navbar {
-        height: 70px;
+        height: 70px !important;
+        background: var(--gray-0) !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
     .navbar-container {
-        padding: 0 20px;
+        padding: 0 15px !important;
+        justify-content: space-between !important;
     }
 
-    .nav-links,
-    .lang-nav {
-        display: none;
-        /* Hide desktop nav */
+    .logo {
+        font-size: 16px !important;
+        letter-spacing: -0.5px;
+        white-space: nowrap;
+        color: var(--text-black) !important;
+    }
+
+    .nav-links, .lang-nav {
+        display: none !important;
     }
 
     .mobile-toggle {
-        display: flex;
+        display: flex !important;
     }
 
-    /* Mobile Menu Overlay */
-    .nav-links.mobile-active {
-        display: flex;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: var(--gray-0);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
-        z-index: 1000;
-        padding: 100px 20px;
+    .mobile-toggle span {
+        background: var(--text-black) !important;
     }
 
-    .nav-links.mobile-active a {
-        color: var(--text-black);
-        font-size: 24px;
-    }
-
-    .nav-links.mobile-active .sub-menu {
-        position: static;
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-        padding: 10px 0;
-        display: none;
-        /* Toggle this via JS */
-    }
-
-    /* Hero Section */
+    /* 3. Hero Section */
     .hero {
-        height: 90vh !important; /* 조금 더 여유 있게 조정 */
+        padding-top: 100px !important;
+        background: #000;
+        display: block !important;
     }
 
-    .hero-content h1 {
-        font-size: 36px; /* 56px에서 36px로 축소하여 줄바꿈 최적화 */
-        line-height: 1.3;
-        letter-spacing: -1px;
-        margin-bottom: 20px;
+    .hero-content {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
+        width: 100% !important;
+        text-align: left !important;
     }
 
-    .hero-content h2 {
-        font-size: 18px; /* 24px에서 축소 */
-        line-height: 1.5;
+    .slogan-title, .slogan-desc {
+        position: relative !important;
+        display: none;
+        top: 0 !important;
+        left: 0 !important;
+    }
+
+    .slogan-title.active, .slogan-desc.active {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+
+    .slogan-title.active {
+        font-size: 28px !important;
+        line-height: 1.3 !important;
+    }
+
+    .slogan-desc.active {
+        font-size: 15px !important;
+        line-height: 1.5 !important;
+        margin-top: 15px !important;
+        color: rgba(255, 255, 255, 0.7) !important;
     }
 
     .hero-controls {
-        bottom: 40px;
+        position: relative !important;
+        margin-top: 30px !important;
+        justify-content: flex-start !important;
     }
 
-    /* Tech Section */
+    /* 4. Tech Section */
     .tech-wrapper {
-        flex-direction: column;
-        padding: 60px 20px;
+        display: block !important;
     }
 
     .tech-info {
-        width: 100%;
-        padding: 0;
-        margin-bottom: 60px;
+        width: 100% !important;
+        margin-bottom: 30px !important;
+        padding-right: 0 !important;
     }
 
     .tech-slider {
-        width: 100%;
-        flex-direction: column;
-        gap: 20px;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
     }
 
     .product-card {
-        flex: none !important;
         width: 100% !important;
-        height: 320px !important; /* 450px에서 320px로 축소하여 스크롤 부담 경감 */
-        margin-bottom: 15px;
+        height: 320px !important;
+        flex: none !important;
+        border-radius: 12px !important;
+        overflow: hidden;
     }
 
-    .product-card.active {
-        flex-grow: 0 !important; /* 모바일에서는 확장 금지 */
-    }
-
-    .product-card .center-content h2 {
-        font-size: 32px; /* 48px에서 32px로 축소 */
-        margin-bottom: 20px;
-    }
-
-    .product-card .bottom-info p {
-        font-size: 15px; /* 18px에서 축소 */
+    .product-card .card-overlay {
+        background: rgba(0, 0, 0, 0.5) !important;
     }
 
     .product-card .center-content {
         opacity: 1 !important;
+        visibility: visible !important;
         transform: none !important;
-        padding: 30px;
+        padding: 20px !important;
     }
 
-    .product-card .card-overlay {
-        background: rgba(0, 0, 0, 0.4) !important; /* 텍스트 가공성을 위해 상시 어둡게 */
+    .product-card h2 {
+        font-size: 24px !important;
+        line-height: 1.2 !important;
     }
 
-    /* Roadmap Section (Stats Layout) */
-    .roadmap {
-        height: auto !important;
-        padding: 60px 0;
-    }
-
+    /* 5. Roadmap & Performance */
     .roadmap-container {
-        height: auto;
-        padding: 40px 20px;
-        gap: 40px;
-    }
-
-    .stats-top {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .stats-title {
-        font-size: 28px; /* 32px에서 축소 */
+        display: block !important;
     }
 
     .stats-main {
-        flex-direction: column;
-        align-items: center; /* 가로 중앙 정렬로 변경 */
-        margin: 30px 0;
-        gap: 15px;
+        margin: 30px 0 !important;
         text-align: center;
-    }
-
-    .main-label {
-        font-size: 22px; /* 28px에서 축소 */
     }
 
     .main-number {
-        font-size: 80px; /* 100px에서 축소하여 화면 이탈 방지 */
-        margin-bottom: 0;
-    }
-
-    .main-number .unit {
-        font-size: 32px;
-        margin-left: 5px;
+        font-size: 60px !important;
     }
 
     .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
     }
 
     .stat-item {
-        padding: 20px 0;
+        padding: 15px 5px !important;
     }
 
-    .stat-item .value {
-        font-size: 40px;
-    }
-
-    /* Cases Section - 모바일 정적 최적화 */
-    .cases-scroll-wrapper {
-        height: auto !important;
-        padding: 80px 0 !important;
-        background: var(--gray-0);
-    }
-
+    /* 6. Cases Section */
     .cases-sticky-container {
-        position: relative !important;
         height: auto !important;
+        position: relative !important;
     }
 
     .cases-content {
-        position: relative !important;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        padding: 0 20px;
+        display: block !important;
     }
 
-    .cases-text-box {
-        position: relative !important;
+    .cases-video-box {
         width: 100% !important;
-        padding: 0;
+        height: auto !important;
+        aspect-ratio: 16/9;
+        margin-top: 20px !important;
+        border-radius: 8px !important;
+    }
+
+    /* 7. Footer */
+    .footer-container {
+        flex-direction: column !important;
         text-align: center;
-        margin-bottom: 40px;
+        gap: 20px !important;
     }
 
-    .cases-text-box .title-sub {
-        font-size: 20px !important;
-        margin-bottom: 10px;
+    /* --- Global Mobile UI Resets --- */
+    .section-counter {
+        display: none !important;
     }
 
-    .cases-text-box .title-main {
-        font-size: 32px !important; /* 68px에서 축소 */
-        line-height: 1.3 !important;
-        letter-spacing: -1px !important;
-        margin-bottom: 25px !important;
-        color: #111 !important;
+    .floating-contact {
+        right: 15px !important;
+        bottom: 15px !important;
+        padding: 10px 15px !important;
+        font-size: 13px !important;
     }
 
-    .cases-text-box .title-desc {
-        font-size: 16px !important;
-        line-height: 1.6 !important;
-        margin-bottom: 30px !important;
-    }
-
-    .cases-links {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        width: 100%;
-        max-width: 400px;
-        margin: 0 auto;
+    /* Visibility Reset (No Animation) */
+    .reveal, .animate, .fade-in, .num, .value, .center-content, .bottom-info {
         opacity: 1 !important;
         visibility: visible !important;
         transform: none !important;
+        transition: none !important;
+        animation: none !important;
     }
 
-    .case-card {
-        padding: 20px !important;
-        background: #f8f8f8 !important;
-        border: 1px solid #eee !important;
-        color: #111 !important;
-    }
-
-    .case-card .ko { font-size: 18px !important; }
-    .case-card .en { font-size: 12px !important; }
-
-    .cases-video-box {
-        position: relative !important;
-        width: 100% !important;
-        height: auto !important;
-        aspect-ratio: 16 / 9;
-        top: 0 !important;
-        left: 0 !important;
-        margin: 40px 0 0;
-        border-radius: 12px !important;
-        transform: none !important;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-
-    /* Hiring Banner */
-    .hiring-banner {
-        height: 40vh;
-    }
-
-    .hiring-content h2 {
-        font-size: 32px;
-    }
-
-    /* Footer */
-    .main-footer {
-        padding: 50px 0;
-    }
-
-    .footer-container {
-        flex-direction: column;
-        gap: 25px;
-        align-items: center;
-        text-align: center;
-        padding: 0 20px;
-    }
-
-    .f-info p {
-        text-align: center;
-        font-size: 13px;
-        color: #888;
+    * {
+        max-width: 100vw;
+        box-sizing: border-box;
     }
 }
 
-/* Small Mobile (below 480px) */
+/* Small Device Fixes */
 @media screen and (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 45px;
+    .slogan-title.active {
+        font-size: 24px !important;
     }
-
+    .main-number {
+        font-size: 48px !important;
+    }
     .main-title {
+        font-size: 28px !important;
+    }
+    .data-box .num {
         font-size: 32px;
     }
-
-    .data-box .num {
-        font-size: 40px;
+    .cases-text-box .title-main {
+        font-size: 28px !important;
     }
 }
 
