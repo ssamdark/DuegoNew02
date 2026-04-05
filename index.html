@@ -5,9 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DUEGO SYSTEM | Official Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/css/variables.css">
     <link rel="stylesheet" as="style" crossorigin
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 
@@ -16,15 +21,19 @@
     <nav class="navbar">
         <div class="nav-dropdown-bg"></div>
         <div class="navbar-container">
-            <a href="#hero" class="logo">DUEGO SYSTEM</a>
+            <!-- ✅ logo-area 추가 -->
+            <div class="logo-area">
+                <a href="#hero" class="logo">DUEGO SYSTEM</a>
+            </div>
             <ul class="nav-links">
                 <li class="nav-item">
                     <span>회사소개</span>
                     <ul class="sub-menu">
-                        <li><a href="#">회사소개 및 비전</a></li>
-                        <li><a href="about/ceo.html">CEO 인사말</a></li>
-                        <li><a href="#">기술 인증 현황</a></li>
-                        <li><a href="#">주요 연혁</a></li>
+                        <!-- ✅ 소문자 about 으로 통일 -->
+                        <li><a href="/about/vision.html">되고시스템 소개</a></li>
+                        <li><a href="/about/ceo.html">CEO 인사말</a></li>
+                        <li><a href="/about/business.html">사업분야 및 인증</a></li>
+                        <li><a href="/about/history.html">주요 연혁</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -87,10 +96,6 @@
                         </h1>
                         <h1 class="slogan-title">
                             <span class="line-1">되고시스템은</span><br>
-                            <span class="line-2">보이지 않는 위험을 예측합니다.</span>
-                        </h1>
-                        <h1 class="slogan-title">
-                            <span class="line-1">되고시스템은</span><br>
                             <span class="line-2">지속 가능한 내일을 약속합니다.</span>
                         </h1>
                     </div>
@@ -98,10 +103,6 @@
                         <p class="slogan-desc active">
                             보이지 않는 위험까지 예측하는 첨단 IT 솔루션으로<br>
                             모든 근로자가 안심하고 일할 수 있는 쾌적한 작업 환경을 제공합니다.
-                        </p>
-                        <p class="slogan-desc">
-                            실시간 데이터 분석과 지능형 모니터링 기술을 통해<br>
-                            현장의 사고 요인을 사전에 차단하여 안전 관리 체계를 구축합니다.
                         </p>
                         <p class="slogan-desc">
                             혁신적인 안전 기술로 현장의 안전을 확보하고<br>
@@ -120,69 +121,70 @@
             </div>
         </section>
 
-        <section id="tech" class="tech-section">
-            <div class="tech-wrapper">
-                <div class="tech-info">
-                    <span class="category-label">SERVICE</span>
-                    <h2 class="main-title">18년 노하우로 완성한<br>검증된 안전관리솔루션을<br>제공합니다.</h2>
-                    <ul class="side-menu">
-                        <li>구독형 서비스</li>
-                        <li>구축형 서비스</li>
+        <section id="tech" class="tech-new-section">
+            <div class="tech-new-container">
+                <div class="tech-info-side">
+                    <h2 class="tech-new-title">
+                        <span class="blue-text">18년 노하우로 완성된</span><br>
+                        <span class="black-text">안전관리 솔루션</span>
+                    </h2>
+                    <p class="tech-new-desc">
+                        현장의 안전을 지키는 되고시스템의<br>
+                        핵심 서비스를 소개합니다.
+                    </p>
+                    <ul class="tech-new-list">
+                        <li class="active">되고세이퍼</li>
+                        <li>되고세이퍼G</li>
+                        <li>민간기업 구축 서비스</li>
+                        <li>공공기업 구축 서비스</li>
                     </ul>
-                    <div class="pagination">
-                        <button class="tech-autoplay-btn" aria-label="Toggle Autoplay">
-                            <i class="ri-stop-mini-fill"></i>
-                        </button>
-                        <span class="num">01</span> <span class="divider">/</span> <span class="num">02</span>
-                    </div>
-                </div>
-
-                <div class="tech-slider">
-                    <!-- 카드 1: 구독형 서비스 -->
-                    <div class="product-card" style="background-image: url('images/tech_card_01.png');">
-                        <div class="card-overlay"></div>
-                        <div class="product-content">
-                            <div class="center-content">
-                                <span class="card-label">SMART & AGILE</span>
-                                <h2>SaaS 기반<br>표준화된 안전 관리 프로세스</h2>
-                                <div class="category-area">
-                                    <span class="category">구독형 서비스</span>
-                                    <div class="arrow-circle"><i class="ri-arrow-right-line"></i></div>
-                                </div>
+                    <div class="tech-bottom-controls">
+                        <div class="active-indicator">
+                            <div class="indicator-header">
+                                <span class="active-name">되고세이퍼</span>
+                                <span class="tech-card-counter">01 / 04</span>
                             </div>
-                            <div class="bottom-info">
-                                <p>번거롭고 복잡한 인프라 구축 절차 없이 도입 즉시 현장에 바로 적용하여 실질적인 안전 관리 수준을 혁신적으로 끌어올립니다.</p>
+                            <div class="indicator-line">
+                                <div class="line-fill"></div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- 카드 2: 구축형 서비스 -->
-                    <div class="product-card" style="background-image: url('images/tech_card_02.png');">
-                        <div class="card-overlay"></div>
-                        <div class="product-content">
-                            <div class="center-content">
-                                <span class="card-label">PREMIUM & INTEGRATED</span>
-                                <h2>커스터마이징<br>최적화 안전 통합 플랫폼</h2>
-                                <div class="category-area">
-                                    <span class="category">구축형 서비스</span>
-                                    <div class="arrow-circle"><i class="ri-arrow-right-line"></i></div>
-                                </div>
-                            </div>
-                            <div class="bottom-info">
-                                <p>현장의 복잡한 인프라와 시스템을 통합하는 전용 솔루션을 제공하여 고객사의 관리 체계에 완벽히 최적화된 안전 생태계를 설계합니다.
-                                </p>
-                            </div>
+                        <div class="tech-nav-arrows">
+                            <button class="t-nav-btn prev"><i class="ri-arrow-left-line"></i></button>
+                            <button class="t-nav-btn next"><i class="ri-arrow-right-line"></i></button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- 배경 흐르는 텍스트 -->
-            <div class="bg-marquee">
-                <div class="marquee-inner">
-                    <span>DUEGO SYSTEM</span>
-                    <span>DUEGO SYSTEM</span>
-                    <span>DUEGO SYSTEM</span>
-                    <span>DUEGO SYSTEM</span>
+                <div class="tech-slider-side">
+                    <div class="tech-new-slider">
+                        <div class="tech-new-card active">
+                            <div class="new-card-img" style="background-image: url('images/tech_card_01.png');"></div>
+                            <div class="new-card-detail">
+                                <h3>되고세이퍼</h3>
+                                <p>현장 안전관리의 모든 과정을 구독 하나로 빠르게 시작하세요.</p>
+                            </div>
+                        </div>
+                        <div class="tech-new-card">
+                            <div class="new-card-img" style="background-image: url('images/tech_card_02.png');"></div>
+                            <div class="new-card-detail">
+                                <h3>되고세이퍼G</h3>
+                                <p>공공기관 기준을 충족한 안전관리 SaaS, 즉시 도입 가능합니다.</p>
+                            </div>
+                        </div>
+                        <div class="tech-new-card">
+                            <div class="new-card-img" style="background-image: url('images/tech_card_01_b.png');"></div>
+                            <div class="new-card-detail">
+                                <h3>민간기업 구축 서비스</h3>
+                                <p>기업의 환경과 프로세스에 최적화된 맞춤형 안전관리 시스템을 구축합니다.</p>
+                            </div>
+                        </div>
+                        <div class="tech-new-card">
+                            <div class="new-card-img" style="background-image: url('images/tech_card_02_b.png');"></div>
+                            <div class="new-card-detail">
+                                <h3>공공기업 구축 서비스</h3>
+                                <p>공공기관의 규정과 업무 흐름에 맞는 전용 안전관리 시스템을 설계합니다.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -193,7 +195,6 @@
             </video>
             <div class="roadmap-overlay"></div>
             <div class="roadmap-container">
-                <!-- Statistics Header -->
                 <div class="stats-top">
                     <div class="stats-header">
                         <span class="stats-label">Performance</span>
@@ -204,8 +205,6 @@
                         <a href="#">파트너 안내 <i class="ri-handshake-line"></i></a>
                     </div>
                 </div>
-
-                <!-- Main Stat -->
                 <div class="stats-main">
                     <div class="main-label">Trust & Performance</div>
                     <div class="main-number">
@@ -213,8 +212,6 @@
                         <span class="unit">+</span>
                     </div>
                 </div>
-
-                <!-- Detail Grid -->
                 <div class="stats-grid">
                     <div class="stat-item">
                         <span class="label"><span class="ko">기업</span> <span class="en">Enterprise</span></span>
@@ -236,57 +233,75 @@
             </div>
         </section>
 
-        <!-- SECTION 4: CASES (Immersive Scroll Video) -->
-        <section id="cases" class="cases-scroll-wrapper">
-            <div class="cases-sticky-container">
-                <div class="cases-content">
-                    <div class="cases-text-box">
-                        <span class="category-label">DUEGO SYSTEM</span>
-                        <div class="cases-title-group">
-                            <span class="title-sub">끊임없는 기술 혁신으로</span>
-                            <h2 class="title-main">지속 가능한<br>안전 생태계를 구축합니다.</h2>
-                            <p class="title-desc">혁신적인 안전 기술로 현장의 위험 요소를 데이터화하고 모니터링 체계를 구현하여,<br>사람과 기술이 공존하는 안전한 미래
-                                가치를 끊임없이 창출합니다.</p>
-                        </div>
-                        <div class="cases-links">
-                            <a href="#" class="case-card">
-                                <div class="card-info">
-                                    <span class="ko">회사소개 및 비전</span>
-                                    <span class="en">Corporate Profile</span>
-                                </div>
-                                <i class="ri-arrow-right-line"></i>
-                            </a>
-                            <a href="about/ceo.html" class="case-card">
-                                <div class="card-info">
-                                    <span class="ko">CEO 인사말</span>
-                                    <span class="en">CEO Message</span>
-                                </div>
-                                <i class="ri-arrow-right-line"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="cases-video-box">
-                        <div class="video-inner">
-                            <video id="cases-vid" autoplay muted loop playsinline>
-                                <source src="video/video_02.mp4" type="video/mp4">
-                                <!-- 기본 제공 비디오 사용 -->
-                            </video>
-                            <div class="video-overlay"></div>
+        <section id="vision" class="vision-section">
+            <div class="vision-layer light">
+                <div class="vision-content">
+                    <div class="vision-text-wrap">
+                        <h2 class="vision-title">
+                            대한민국 No.1,<br>
+                            안전보건 통합플랫폼 기업 되고시스템입니다.
+                        </h2>
+                        <div class="vision-bottom">
+                            <p class="vision-desc">
+                                되고시스템은 현장의 안전을 최우선 가치로 삼습니다.<br>
+                                18년간 축적된 현장 데이터와 기술력으로 위험 요소를 사전에 감지하고,<br>
+                                사람과 기술이 함께 만드는 더 안전한 산업 현장을 실현합니다.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="vision-layer dark">
+                <div class="vision-content">
+                    <div class="vision-text-wrap">
+                        <h2 class="vision-title">
+                            대한민국 No.1,<br>
+                            안전보건 통합플랫폼 기업 되고시스템입니다.
+                        </h2>
+                        <div class="vision-bottom">
+                            <p class="vision-desc">
+                                되고시스템은 현장의 안전을 최우선 가치로 삼습니다.<br>
+                                18년간 축적된 현장 데이터와 기술력으로 위험 요소를 사전에 감지하고,<br>
+                                사람과 기술이 함께 만드는 더 안전한 산업 현장을 실현합니다.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="vision-cards">
+                        <div class="vision-card" style="background-image: url('images/tech_card_01.png');">
+                            <div class="v-card-overlay"></div>
+                            <div class="v-card-content">
+                                <span class="v-card-label">WHO WE ARE</span>
+                                <h3 class="v-card-title">되고시스템 소개</h3>
+                                <div class="v-card-bottom">
+                                    <span class="v-card-cat">되고시스템 소개</span>
+                                    <div class="v-arrow"><i class="ri-arrow-right-line"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vision-card" style="background-image: url('images/tech_card_02.png');">
+                            <div class="v-card-overlay"></div>
+                            <div class="v-card-content">
+                                <span class="v-card-label">TRUST & CERTIFICATION</span>
+                                <h3 class="v-card-title">사업분야 및 인증</h3>
+                                <div class="v-card-bottom">
+                                    <span class="v-card-cat">공인된 기술력</span>
+                                    <div class="v-arrow"><i class="ri-arrow-right-line"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="main-footer">
+                <div class="footer-container">
+                    <div class="f-logo">DUEGO SYSTEM</div>
+                    <div class="f-info">
+                        <p>(주)되고시스템 (34086) 대전광역시 유성구 은구비남로33번길 29, 3층</p>
+                        <p>© 2026 DUEGO SYSTEM. All rights reserved.</p>
+                    </div>
+                </div>
+            </footer>
         </section>
-
-        <footer class="main-footer">
-            <div class="footer-container">
-                <div class="f-logo">DUEGO SYSTEM</div>
-                <div class="f-info">
-                    <p>(주)되고시스템 (34086) 대전광역시 유성구 은구비남로33번길 29, 3층</p>
-                    <p>© 2026 DUEGO SYSTEM. All rights reserved.</p>
-                </div>
-            </div>
-        </footer>
     </div>
 
     <div class="section-counter">
@@ -300,7 +315,9 @@
         <i class="ri-chat-3-line"></i>
     </a>
 
+    <!-- ✅ common.js 추가 -->
     <script src="js/main.js"></script>
+    <script src="js/common.js"></script>
 </body>
 
 </html>
